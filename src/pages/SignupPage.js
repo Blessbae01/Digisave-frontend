@@ -19,7 +19,7 @@ const SignupPage = () => {
     const onSubmit = async e => {
         e.preventDefault();
         try {
-            const { data } = await axios.post('https://digisave-backend.onrender.com/api/users/signup', formData);
+            const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/users/signup`);
 
             // This code works perfectly with the new structure
             setMessage(data.message);
@@ -29,7 +29,7 @@ const SignupPage = () => {
                 setTimeout(() => navigate('/login'), 2000);
             }
         } catch (err) {
-            // This also works perfectly with the new error structure
+            // yes This also works perfectly with the new error structure
             setMessage(err.response?.data?.message || 'Something went wrong');
         }
     };

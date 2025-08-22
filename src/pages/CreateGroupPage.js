@@ -36,8 +36,8 @@ const CreateGroupPage = () => {
                 }
             };
 
-            // 3. Send the request and get the new response structure
-            const { data } = await axios.post('https://digisave-backend.onrender.com/api/groups', formData, config);
+            // 3. yes Send the request and get the new response structure
+            const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/groups`, formData, config);
             
             // THE FIX: Use the message from the API response
             alert(data.message);

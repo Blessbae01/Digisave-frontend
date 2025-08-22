@@ -18,12 +18,12 @@ const HomePage = () => {
         navigate(`/groups/${groupId}`);
     };
 
-    // Effect to fetch groups when the component loads
+    // yes Effect to fetch groups when the component loads
     useEffect(() => {
         const fetchGroups = async () => {
             try {
                 // 'data' is now the full response: { success, message, data }
-                const { data } = await axios.get('https://digisave-backend.onrender.com/api/groups');
+                const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/groups`);
 
                 // THE FIX: Check for success and get the array from data.data
                 if (data.success && Array.isArray(data.data)) {
@@ -77,10 +77,12 @@ const HomePage = () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const config = {
-                headers: { Authorization: `Bearer ${userInfo.token}` }
+                headers: { 
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${userInfo.token}` }
             };
             // The response from this POST will also have the new structure
-            const { data } = await axios.post(`https://digisave-backend.onrender.com/api/groups/${selectedGroup._id}/join`, formData, config);
+            const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/groups/${selectedGroup._id}/join`, formData, config);
             
             // The success message is at data.message
             alert(data.message);

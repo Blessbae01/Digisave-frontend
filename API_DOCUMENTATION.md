@@ -76,6 +76,32 @@ Request Body:
     "message": "User with this email already exists"
 }
 
+### 1.3 Get Current User Details
+Fetches the profile data of the currently logged-in user using their JWT token. This is useful for re-populating user data when the app loads.
+
+- **Endpoint:** `/users/me`
+- **Method:** `GET`
+- **Authentication:** **Required.** Must include `Authorization: Bearar <token>` in the request header.
+- **Request Body:** (None)
+- **Success Response (200 OK):**
+  ```json
+  {
+      "success": true,
+      "message": "User data fetched successfully",
+      "data": {
+          "_id": "60d5ecb0c5f2a1b9c8f8b8a1",
+          "fullName": "Blessing Uzoukwu",
+          "email": "user@example.com",
+          "phoneNumber": "08012345678"
+      }
+  }
+
+- **Error Response (401 Unauthorized):**
+  {
+    "success": false,
+    "message": "Not authorized, token failed"
+}
+
 <!--
 2. Groups
 Handles the creation and retrieval of Esusu groups.

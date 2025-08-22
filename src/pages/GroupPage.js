@@ -19,7 +19,7 @@ const GroupPage = () => {
                     headers: { Authorization: `Bearer ${userInfo.token}` }
                 };
                 // 'data' is now the full response: { success, message, data }
-                const { data } = await axios.get(`https://digisave-backend.onrender.com/api/groups/${id}/requests`, config);
+                const { data } = await axios.get(`${process.env.REACT_APP_API_URL}/groups/${id}/requests`, config);
                 
                 // THE FIX: Check for success and get the array from data.data
                 if (data.success && Array.isArray(data.data)) {
@@ -45,10 +45,12 @@ const GroupPage = () => {
         try {
             const userInfo = JSON.parse(localStorage.getItem('userInfo'));
             const config = {
-                headers: { Authorization: `Bearer ${userInfo.token}` }
+                headers: {
+                    'Content-Type': 'application/json',
+                     Authorization: `Bearer ${userInfo.token}` }
             };
-            // The response from this PUT request will also have the new structure
-            const { data } = await axios.put(`https://digisave-backend.onrender.com/api/groups/requests/${requestId}/approve`, {}, config);
+            // yes The response from this PUT request will also have the new structure
+            const { data } = await axios.put(`${process.env.REACT_APP_API_URL}/groups/requests/${requestId}/approve` , {}, config);
             
             // Use the success message from the API
             alert(data.message);

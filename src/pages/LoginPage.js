@@ -16,9 +16,10 @@ const LoginPage = () => {
 
     const onSubmit = async e => {
         e.preventDefault();
+        const config = { headers: { 'Content-Type': 'application/json' } };
         try {
-            // 'data' is now the full response object: { success, message, data }
-            const { data } = await axios.post('https://digisave-backend.onrender.com/api/users/login', formData);
+            //yes  'data' is now the full response object: { success, message, data }
+            const { data } = await axios.post(`${process.env.REACT_APP_API_URL}/users/login`, formData, config);
             // First, check if the login was successful
             if (data.success) {
                 // THE FIX: Store the nested user object from data.data
